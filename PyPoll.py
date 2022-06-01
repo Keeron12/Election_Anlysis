@@ -55,6 +55,25 @@ with open(file_to_load) as election_data:
 
         # Add a vote to that candidate's count
         candidate_votes[candidate_name] += 1
+
+        # Save the results to our text file
+with open(file_to_save, "w") as txt_file:
+
+    # Print the final vote count to the terminal
+    election_results = (
+        f"\nElection Results\n"
+
+        f"---------------------\n"
+
+        f"Total Votes: {total_votes:,}\n"
+
+        f"----------------------\n")
+
+    print(election_results, end="")
+
+    txt_file.write(election_results)
+
+
     
     # Determine the percentage of votes for each candidate by looping through the counts
 
@@ -68,6 +87,13 @@ with open(file_to_load) as election_data:
         vote_percentage = float(votes) / float(total_votes) * 100
 
         # Print the candidate name and percentage of votes
+        candidate_results = f"{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n"
+
+        # Print each candidate, their voter count, and percentage to the terminal
+        print(candidate_results)
+  
+        # Save the candidate results to our text file
+        txt_file.write(candidate_results)
 
         # Determine winning vote count and candidate
         if (votes > winning_count) and (vote_percentage > winning_percentage):
@@ -81,7 +107,8 @@ with open(file_to_load) as election_data:
 
             winning_candidate = candidate_name
 
-        print(f"{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n")
+        
+    # Print the winning candidate's results to the terminal
     winning_candidate_summary = (
 
         f"-------------------\n"
@@ -94,17 +121,12 @@ with open(file_to_load) as election_data:
 
         f"--------------------\n")
 
+    # Save the winning candidate's name to the text file.
+    txt_file.write(winning_candidate_summary)
+
     print(winning_candidate_summary)
 
 # Print the total votes
 print(total_votes)
 
 
-# Open a text file to write to
-
-# with open(file_to_save, "w") as txt_file:
-
-#     # Write some data to the file
-#     txt_file.write('Counties in the Election\n')
-#     txt_file.write('---------------------\n')
-#     txt_file.write('Arapahoe\nDenver\nJefferson')
